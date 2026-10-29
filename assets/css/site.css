@@ -16,6 +16,13 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: 15px; -webkit-font-smoothing: antialiased; }
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) { animation: page-crossfade-in .34s cubic-bezier(.22,.7,.2,1) both; }
+@keyframes page-crossfade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .motion-enabled .motion-reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
 .motion-enabled .motion-reveal.is-visible { opacity: 1; transform: translateY(0); }
 ::selection { background: #d7c49f; color: var(--green-deep); }
@@ -514,5 +521,6 @@ h1 em, h2 em { font-weight: 500; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  ::view-transition-new(root) { animation-duration: .01ms; }
   .motion-enabled .motion-reveal { opacity: 1; transform: none; }
 }
